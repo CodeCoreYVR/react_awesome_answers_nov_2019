@@ -1,11 +1,12 @@
 import React from "react";
 
+import "./css/QuestionShowPage.css";
 import { QuestionDetails } from "./QuestionDetails";
 import { AnswerDetails } from "./AnswerDetails";
 
 const QuestionShowPage = () => {
   return (
-    <div>
+    <div className="Page">
       <QuestionDetails
         title="What is your favourite color?"
         body="Red, Green, Magenta, etc."
