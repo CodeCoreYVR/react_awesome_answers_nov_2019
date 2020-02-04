@@ -2,7 +2,8 @@ import React from "react";
 
 import "./css/QuestionShowPage.css";
 import { QuestionDetails } from "./QuestionDetails";
-import { AnswerDetails } from "./AnswerDetails";
+import { AnswerList } from "./AnswerList";
+import oneQuestionData from "../oneQuestionData";
 
 const QuestionShowPage = () => {
   return (
@@ -14,11 +15,7 @@ const QuestionShowPage = () => {
         view_count={100}
         created_at={new Date()}
       />
-      <AnswerDetails
-        body="Green"
-        author={{ full_name: "Dylan O'Brien " }}
-        created_at={new Date()}
-      />
+      <AnswerList answers={oneQuestionData.answers} />
     </div>
   );
 };
