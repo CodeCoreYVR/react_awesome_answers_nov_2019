@@ -8,6 +8,7 @@ import * as serviceWorker from "./serviceWorker";
 // Components whose names does not begin with a capital letter,
 // will be interpretted as a plain HTML tag.
 
+// QuestionDetails component
 const QuestionDetails = () => {
   return (
     <div>
@@ -21,10 +22,23 @@ const QuestionDetails = () => {
   );
 };
 
+// AnswerDetails component
+const AnswerDetails = () => {
+  return (
+    <div>
+      <p>
+        Red. <br />
+        By Ashkan Hamidi
+      </p>
+      <p>Answered 2 seconds ago</p>
+    </div>
+  );
+};
+
 // In JSX, self-closing tags must be closed. <img> doesn't work,
 // you must write <img />
 
-ReactDOM.render(<QuestionDetails />, document.getElementById("root"));
+ReactDOM.render(<AnswerDetails />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
