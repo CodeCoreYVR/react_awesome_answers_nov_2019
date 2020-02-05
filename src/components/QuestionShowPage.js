@@ -44,7 +44,12 @@ class QuestionShowPage extends Component {
     return (
       <div className="Page">
         <QuestionDetails {...this.state.question} />
-        <button onClick={() => this.deleteQuestion()}>Delete</button>
+        <button
+          className="ui small right floated red button"
+          onClick={() => this.deleteQuestion()}
+        >
+          Delete
+        </button>
         <AnswerList
           answers={this.state.question.answers}
           onAnswerDeleteClick={id => this.deleteAnswer(id)}

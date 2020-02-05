@@ -2,7 +2,7 @@ import React from "react";
 
 export const AnswerDetails = props => {
   return (
-    <div>
+    <div className="ui segment list">
       <p>
         {props.body} <br />
         By{" "}
@@ -16,7 +16,12 @@ export const AnswerDetails = props => {
         </small>
       </p>
       <p>Answered {props.created_at.toLocaleString()}</p>
-      <button onClick={() => props.onDeleteClick(props.id)}>Delete</button>
+      <button
+        className="ui small  red button"
+        onClick={() => props.onDeleteClick(props.id)}
+      >
+        Delete
+      </button>
     </div>
   );
 };

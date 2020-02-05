@@ -5,10 +5,10 @@ import { QuestionIndexPage } from "./QuestionIndexPage";
 
 const App = () => {
   return (
-    <>
+    <div className="ui contianer segment">
       <QuestionIndexPage />
       <QuestionShowPage />
-    </>
+    </div>
   );
 };
 

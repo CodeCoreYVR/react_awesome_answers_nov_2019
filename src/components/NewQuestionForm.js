@@ -20,21 +20,18 @@ const NewQuestionForm = props => {
     currentTarget.reset();
   };
   return (
-    <form className="NewQuestionForm" onSubmit={handleSubmit}>
-      <div>
+    <form className="NewQuestionForm ui form" onSubmit={handleSubmit}>
+      <div className="field">
         <label htmlFor="title">Title</label>
-        <br />
         <input type="text" name="title" id="title" />
       </div>
-
-      <div>
+      <div className="field">
         <label htmlFor="body">Body</label>
-        <br />
-        <textarea name="body" id="body" />
+        <textarea name="body" id="body" rows="3" />
       </div>
-      <div>
-        <input type="submit" value="Create Question" />
-      </div>
+      <button class="ui orange button" type="submit">
+        Create Question
+      </button>
     </form>
   );
 };

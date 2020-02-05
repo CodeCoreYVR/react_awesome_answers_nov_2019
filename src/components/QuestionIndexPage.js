@@ -59,17 +59,17 @@ export class QuestionIndexPage extends Component {
     return (
       <main>
         <NewQuestionForm onCreateQuestion={this.createQuestion} />
-        <h2>Questions</h2>
-        <ul
-          style={{
-            listStyle: "none",
-            paddingLeft: 0
-          }}
-        >
+        <h2 className="ui horizontal divider header">Questions</h2>
+        <ul className="ui list">
           {this.state.questions.map(question => (
-            <li key={question.id} style={{ padding: "0.2em" }}>
-              <a href="">{question.title}</a>
-              <button onClick={() => this.deleteQuestion(question.id)}>
+            <li className="item" key={question.id}>
+              <a className="ui link" href="">
+                {question.title}
+              </a>
+              <button
+                className="ui small right floated red button"
+                onClick={() => this.deleteQuestion(question.id)}
+              >
                 Delete
               </button>
             </li>
