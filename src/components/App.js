@@ -6,8 +6,8 @@ import { QuestionIndexPage } from "./QuestionIndexPage";
 const App = () => {
   return (
     <>
-      <QuestionShowPage />
       <QuestionIndexPage />
+      <QuestionShowPage />
     </>
   );
 };

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+import NewQuestionForm from "./NewQuestionForm";
 import data from "../questionData";
 
 export class QuestionIndexPage extends Component {
@@ -13,6 +14,8 @@ export class QuestionIndexPage extends Component {
       // questions: data.map(question => question)
       questions: [...data]
     };
+
+    // this.createQuestion = this.createQuestion.bind(this);
   }
 
   deleteQuestion(id) {
@@ -36,9 +39,26 @@ export class QuestionIndexPage extends Component {
     });
   }
 
+  createQuestion = params => {
+    // update the list of questions within our state
+    // by adding a new question to that list
+    this.setState(state => {
+      return {
+        questions: [
+          {
+            ...params,
+            id: Math.max(...state.questions.map(q => q.id)) + 1
+          },
+          ...state.questions
+        ]
+      };
+    });
+  };
+
   render() {
     return (
       <main>
+        <NewQuestionForm onCreateQuestion={this.createQuestion} />
         <h2>Questions</h2>
         <ul
           style={{
