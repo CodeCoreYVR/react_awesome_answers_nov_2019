@@ -43,7 +43,7 @@ export class QuestionIndexPage extends Component {
         <ul
           style={{
             listStyle: "none",
-            paddigLeft: 0
+            paddingLeft: 0
           }}
         >
           {this.state.questions.map(question => (

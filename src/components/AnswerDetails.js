@@ -16,6 +16,7 @@ export const AnswerDetails = props => {
         </small>
       </p>
       <p>Answered {props.created_at.toLocaleString()}</p>
+      <button onClick={() => props.onDeleteClick(props.id)}>Delete</button>
     </div>
   );
 };
