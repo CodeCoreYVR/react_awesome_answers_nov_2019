@@ -35,9 +35,7 @@ class QuestionShowPage extends Component {
     if (!this.state.question) {
       return (
         <div className="Page">
-          <h3 style={{ color: "white", backgroundColor: "red" }}>
-            Question doesn't exist
-          </h3>
+          <h3 className="ui red header">Question doesn't exist</h3>
         </div>
       );
     }

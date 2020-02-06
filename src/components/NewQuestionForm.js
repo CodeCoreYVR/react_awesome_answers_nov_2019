@@ -29,7 +29,7 @@ const NewQuestionForm = props => {
         <label htmlFor="body">Body</label>
         <textarea name="body" id="body" rows="3" />
       </div>
-      <button class="ui orange button" type="submit">
+      <button className="ui orange button" type="submit">
         Create Question
       </button>
     </form>
