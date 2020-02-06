@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import QuestionShowPage from "./QuestionShowPage";
 import { QuestionIndexPage } from "./QuestionIndexPage";
 import { WelcomePage } from "./WelcomePage";
 import { NavBar } from "./NavBar";
 import { Session } from "../api/session";
+import { QuestionNewPage } from "./QuestionNewPage";
 
 class App extends Component {
   constructor(props) {
@@ -35,9 +36,12 @@ class App extends Component {
           <NavBar />
         </header>
         <div className="ui container segment">
-          <Route exact path="/" component={WelcomePage} />
-          <Route exact path="/questions" component={QuestionIndexPage} />
-          <Route path="/questions/:id" component={QuestionShowPage} />
+          <Switch>
+            <Route exact path="/" component={WelcomePage} />
+            <Route exact path="/questions" component={QuestionIndexPage} />
+            <Route exact path="/questions/new" component={QuestionNewPage} />
+            <Route path="/questions/:id" component={QuestionShowPage} />
+          </Switch>
         </div>
       </BrowserRouter>
     );
