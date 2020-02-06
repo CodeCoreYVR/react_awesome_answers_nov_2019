@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import "./css/QuestionShowPage.css";
 import { QuestionDetails } from "./QuestionDetails";
 import { AnswerList } from "./AnswerList";
-import oneQuestionData from "../oneQuestionData";
+import { Question } from "../api/question";
 
 class QuestionShowPage extends Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class QuestionShowPage extends Component {
     // constructor with 'super' passing it the 'props'
     super(props);
     this.state = {
-      question: oneQuestionData
+      question: null
     };
   }
 
@@ -28,6 +28,12 @@ class QuestionShowPage extends Component {
         ...this.state.question,
         answers: this.state.question.answers.filter(a => a.id !== id)
       }
+    });
+  }
+
+  componentDidMount() {
+    Question.one(28).then(question => {
+      this.setState({ question });
     });
   }
 
