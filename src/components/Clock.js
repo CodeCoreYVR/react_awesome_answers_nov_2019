@@ -40,7 +40,11 @@ export class Clock extends Component {
   }
 
   render() {
-    console.log("inside render method");
-    return <div className="">{this.state.dateTime.toLocaleTimeString()}</div>;
+    // console.log("inside render method");
+    return (
+      <div className="ui brown large label">
+        {this.state.dateTime.toLocaleTimeString()}
+      </div>
+    );
   }
 }
