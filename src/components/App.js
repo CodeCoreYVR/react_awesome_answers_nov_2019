@@ -17,18 +17,18 @@ class App extends Component {
     };
   }
 
-  async componentDidMount() {
-    // This gives us back a cookie that represents us being logged in
-    // Now, when we make POST requests to the server to make a Question,
-    // we will be authorized/authenticated
-    // This is a Hacky method until we learn about Authentication in React
-    const user = await Session.create({
-      email: "js@winterfell.gov",
-      password: "supersecret"
-    });
+  // async componentDidMount() {
+  //   // This gives us back a cookie that represents us being logged in
+  //   // Now, when we make POST requests to the server to make a Question,
+  //   // we will be authorized/authenticated
+  //   // This is a Hacky method until we learn about Authentication in React
+  //   const user = await Session.create({
+  //     email: "js@winterfell.gov",
+  //     password: "supersecret"
+  //   });
 
-    this.setState({ currentUser: user });
-  }
+  //   this.setState({ currentUser: user });
+  // }
 
   render() {
     return (
