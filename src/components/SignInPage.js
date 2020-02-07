@@ -23,12 +23,15 @@ export class SignInPage extends Component {
       email: fd.get("email"),
       password: fd.get("password")
     }).then(data => {
-      if (data.status === 401) {
+      if (data.status === 404) {
         this.setState({
           errors: [{ message: "Wrong Email or Password" }]
         });
       } else {
         this.props.history.push("/");
+        if (typeof this.props.onSignIn === "function") {
+          this.props.onSignIn();
+        }
       }
     });
   }

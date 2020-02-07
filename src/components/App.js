@@ -5,9 +5,9 @@ import QuestionShowPage from "./QuestionShowPage";
 import { QuestionIndexPage } from "./QuestionIndexPage";
 import { WelcomePage } from "./WelcomePage";
 import { NavBar } from "./NavBar";
-import { Session } from "../api/session";
 import { QuestionNewPage } from "./QuestionNewPage";
 import { SignInPage } from "./SignInPage";
+import { User } from "../api/user";
 
 class App extends Component {
   constructor(props) {
@@ -15,26 +15,29 @@ class App extends Component {
     this.state = {
       currentUser: null
     };
+
+    this.getUser = this.getUser.bind(this);
   }
 
-  // async componentDidMount() {
-  //   // This gives us back a cookie that represents us being logged in
-  //   // Now, when we make POST requests to the server to make a Question,
-  //   // we will be authorized/authenticated
-  //   // This is a Hacky method until we learn about Authentication in React
-  //   const user = await Session.create({
-  //     email: "js@winterfell.gov",
-  //     password: "supersecret"
-  //   });
+  getUser() {
+    User.current().then(data => {
+      if (typeof data.id !== "number") {
+        this.setState({ currentUser: null });
+      } else {
+        this.setState({ currentUser: data });
+      }
+    });
+  }
 
-  //   this.setState({ currentUser: user });
-  // }
+  componentDidMount() {
+    this.getUser();
+  }
 
   render() {
     return (
       <BrowserRouter>
         <header>
-          <NavBar />
+          <NavBar currentUser={this.state.currentUser} />
         </header>
         <div className="ui container segment">
           <Switch>
@@ -42,7 +45,12 @@ class App extends Component {
             <Route exact path="/questions" component={QuestionIndexPage} />
             <Route exact path="/questions/new" component={QuestionNewPage} />
             <Route path="/questions/:id" component={QuestionShowPage} />
-            <Route path="/sign_in" component={SignInPage} />
+            <Route
+              path="/sign_in"
+              render={routeProps => (
+                <SignInPage {...routeProps} onSignIn={this.getUser} />
+              )}
+            />
           </Switch>
         </div>
       </BrowserRouter>
