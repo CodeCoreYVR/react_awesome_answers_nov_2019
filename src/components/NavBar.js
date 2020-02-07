@@ -21,9 +21,14 @@ export const NavBar = ({ currentUser, onSignOut }) => {
       </NavLink>
       <div className="right menu">
         {!currentUser && (
-          <NavLink exact to="/sign_in" className="ui inverted orange button">
-            Sign In
-          </NavLink>
+          <>
+            <NavLink exact to="/sign_in" className="ui black button">
+              Sign In
+            </NavLink>
+            <NavLink exact to="/sign_up" className="ui black button">
+              Sign Up
+            </NavLink>
+          </>
         )}
         {currentUser && (
           <>

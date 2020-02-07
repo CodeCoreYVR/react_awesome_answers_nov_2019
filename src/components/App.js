@@ -10,6 +10,7 @@ import { SignInPage } from "./SignInPage";
 import { User } from "../api/user";
 import { Session } from "../api/session";
 import { AuthRoute } from "./AuthRoute";
+import { SignUpPage } from "./SignUpPage";
 
 class App extends Component {
   constructor(props) {
@@ -65,6 +66,12 @@ class App extends Component {
               component={QuestionShowPage}
               path="/questions/:id"
               exact
+            />
+            <Route
+              path="/sign_up"
+              render={routeProps => (
+                <SignUpPage {...routeProps} onSignUp={this.getUser} />
+              )}
             />
             <Route
               path="/sign_in"
