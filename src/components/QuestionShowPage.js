@@ -19,8 +19,8 @@ class QuestionShowPage extends Component {
   }
 
   deleteQuestion() {
-    this.setState({
-      question: null
+    Question.destroy(this.state.question.id).then(data => {
+      this.props.history.push("/questions");
     });
   }
 
