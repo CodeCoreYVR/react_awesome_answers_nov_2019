@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Clock } from "./Clock";
 
 export const NavBar = props => {
   return (
@@ -15,7 +14,9 @@ export const NavBar = props => {
         Ask
       </NavLink>
       <div className="right menu">
-        <Clock />
+        <NavLink exact to="/sign_in" className="ui inverted orange button">
+          Sign In
+        </NavLink>
       </div>
     </div>
   );
