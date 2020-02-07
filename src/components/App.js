@@ -8,6 +8,7 @@ import { NavBar } from "./NavBar";
 import { QuestionNewPage } from "./QuestionNewPage";
 import { SignInPage } from "./SignInPage";
 import { User } from "../api/user";
+import { Session } from "../api/session";
 
 class App extends Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class App extends Component {
     };
 
     this.getUser = this.getUser.bind(this);
+    this.destroySession = this.destroySession.bind(this);
   }
 
   getUser() {
@@ -29,6 +31,10 @@ class App extends Component {
     });
   }
 
+  destroySession() {
+    Session.destroy().then(this.setState({ currentUser: null }));
+  }
+
   componentDidMount() {
     this.getUser();
   }
@@ -37,7 +43,10 @@ class App extends Component {
     return (
       <BrowserRouter>
         <header>
-          <NavBar currentUser={this.state.currentUser} />
+          <NavBar
+            currentUser={this.state.currentUser}
+            onSignOut={this.destroySession}
+          />
         </header>
         <div className="ui container segment">
           <Switch>
