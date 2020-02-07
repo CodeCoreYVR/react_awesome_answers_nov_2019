@@ -9,6 +9,7 @@ import { QuestionNewPage } from "./QuestionNewPage";
 import { SignInPage } from "./SignInPage";
 import { User } from "../api/user";
 import { Session } from "../api/session";
+import { AuthRoute } from "./AuthRoute";
 
 class App extends Component {
   constructor(props) {
@@ -52,8 +53,19 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={WelcomePage} />
             <Route exact path="/questions" component={QuestionIndexPage} />
-            <Route exact path="/questions/new" component={QuestionNewPage} />
-            <Route path="/questions/:id" component={QuestionShowPage} />
+            <AuthRoute
+              // The !! turns a statement from "truthy/falsy" to "true/false" respectively
+              isAuthenticated={!!this.state.currentUser}
+              component={QuestionNewPage}
+              path="/questions/new"
+              exact
+            />
+            <AuthRoute
+              isAuthenticated={!!this.state.currentUser}
+              component={QuestionShowPage}
+              path="/questions/:id"
+              exact
+            />
             <Route
               path="/sign_in"
               render={routeProps => (
