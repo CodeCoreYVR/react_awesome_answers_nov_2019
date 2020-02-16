@@ -12,6 +12,8 @@ const QuestionShowPage = props => {
     isLoading: true
   });
 
+  const currentQuestionId = props.match.params.id;
+
   const deleteQuestion = () => {
     Question.destroy(questionShow.question.id).then(data => {
       props.history.push("/questions");
@@ -27,10 +29,10 @@ const QuestionShowPage = props => {
   };
 
   useEffect(() => {
-    Question.one(props.match.params.id).then(question => {
+    Question.one(currentQuestionId).then(question => {
       setQuestionShow({ question, isLoading: false });
     });
-  }, []);
+  }, [currentQuestionId]);
 
   if (questionShow.isLoading) {
     return <Spinner message="Question doesn't exist" />;

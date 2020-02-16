@@ -36,13 +36,12 @@ export const NavBar = ({ currentUser, onSignOut, showTime }) => {
         {currentUser && (
           <>
             <div className="item">Hello {currentUser.full_name}</div>
-            <a
-              href=""
+            <button
               className="ui inverted red button"
               onClick={handleSignOutClick}
             >
               Sign Out
-            </a>
+            </button>
           </>
         )}
       </div>
