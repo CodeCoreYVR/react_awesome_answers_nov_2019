@@ -12,11 +12,7 @@ export const AnswerList = props => {
       <h2 className="ui horizontal divider header">Answers</h2>
       <ul className="ui list">
         {props.answers.map(answer => (
-          <AnswerDetails
-            key={answer.id}
-            {...answer}
-            onDeleteClick={props.onAnswerDeleteClick}
-          />
+          <AnswerDetails key={answer.id} {...answer} />
         ))}
       </ul>
     </div>

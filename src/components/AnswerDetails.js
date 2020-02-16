@@ -1,5 +1,7 @@
 import React from "react";
 
+import { QuestionShowContext } from "./QuestionShowPage";
+
 export const AnswerDetails = props => {
   return (
     <div className="ui segment list">
@@ -16,12 +18,18 @@ export const AnswerDetails = props => {
         </small>
       </p>
       <p>Answered {props.created_at.toLocaleString()}</p>
-      <button
-        className="ui small  red button"
-        onClick={() => props.onDeleteClick(props.id)}
-      >
-        Delete
-      </button>
+      <QuestionShowContext.Consumer>
+        {deleteAnswer => {
+          return (
+            <button
+              className="ui small  red button"
+              onClick={() => deleteAnswer(props.id)}
+            >
+              Delete
+            </button>
+          );
+        }}
+      </QuestionShowContext.Consumer>
     </div>
   );
 };

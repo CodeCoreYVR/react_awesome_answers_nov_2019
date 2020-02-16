@@ -6,6 +6,8 @@ import { AnswerList } from "./AnswerList";
 import { Question } from "../api/question";
 import { Spinner } from "./Spinner";
 
+export const QuestionShowContext = React.createContext();
+
 const QuestionShowPage = props => {
   const [questionShow, setQuestionShow] = useState({
     question: null,
@@ -46,10 +48,9 @@ const QuestionShowPage = props => {
       >
         Delete
       </button>
-      <AnswerList
-        answers={questionShow.question.answers}
-        onAnswerDeleteClick={id => deleteAnswer(id)}
-      />
+      <QuestionShowContext.Provider value={deleteAnswer}>
+        <AnswerList answers={questionShow.question.answers} />
+      </QuestionShowContext.Provider>
     </div>
   );
 };
