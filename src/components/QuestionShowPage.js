@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 
 import "./css/QuestionShowPage.css";
 import { QuestionDetails } from "./QuestionDetails";
@@ -6,72 +6,50 @@ import { AnswerList } from "./AnswerList";
 import { Question } from "../api/question";
 import { Spinner } from "./Spinner";
 
-class QuestionShowPage extends Component {
-  constructor(props) {
-    // When using a constructor in a class-based
-    // component, you must call the 'Component' class
-    // constructor with 'super' passing it the 'props'
-    super(props);
-    this.state = {
-      question: null,
-      isLoading: true
-    };
-  }
+const QuestionShowPage = props => {
+  const [questionShow, setQuestionShow] = useState({
+    question: null,
+    isLoading: true
+  });
 
-  deleteQuestion() {
-    Question.destroy(this.state.question.id).then(data => {
-      this.props.history.push("/questions");
+  const deleteQuestion = () => {
+    Question.destroy(questionShow.question.id).then(data => {
+      props.history.push("/questions");
     });
-  }
+  };
 
-  deleteAnswer(id) {
-    this.setState({
-      question: {
-        ...this.state.question,
-        answers: this.state.question.answers.filter(a => a.id !== id)
-      }
+  const deleteAnswer = id => {
+    const newAnswers = questionShow.question.answers.filter(a => a.id !== id);
+    setQuestionShow({
+      ...questionShow,
+      question: { ...questionShow.question, answers: newAnswers }
     });
-  }
+  };
 
-  componentDidMount() {
-    // All components that are rendered by a <Route> component
-    // (like QuestionShowPage) will be given props by that
-    // route component. One of these props called "match", which
-    // contains information related to the pattern matched path
-    // defined in App.js
-    // <Route path="/questions/:id/:test/:something" component={QuestionShowPage} />
-    // match: {
-    //   params: {
-    //     id: <whatever-id-is>,
-    //     test: <whatever-test-is>,
-    //     something: <whatever-something-is>
-    //   }
-    // }
-    Question.one(this.props.match.params.id).then(question => {
-      this.setState({ question, isLoading: false });
+  useEffect(() => {
+    Question.one(props.match.params.id).then(question => {
+      setQuestionShow({ question, isLoading: false });
     });
-  }
+  }, []);
 
-  render() {
-    if (this.state.isLoading) {
-      return <Spinner message="Question doesn't exist" />;
-    }
-    return (
-      <div className="Page">
-        <QuestionDetails {...this.state.question} />
-        <button
-          className="ui small right floated red button"
-          onClick={() => this.deleteQuestion()}
-        >
-          Delete
-        </button>
-        <AnswerList
-          answers={this.state.question.answers}
-          onAnswerDeleteClick={id => this.deleteAnswer(id)}
-        />
-      </div>
-    );
+  if (questionShow.isLoading) {
+    return <Spinner message="Question doesn't exist" />;
   }
-}
+  return (
+    <div className="Page">
+      <QuestionDetails {...questionShow.question} />
+      <button
+        className="ui small right floated red button"
+        onClick={() => deleteQuestion()}
+      >
+        Delete
+      </button>
+      <AnswerList
+        answers={questionShow.question.answers}
+        onAnswerDeleteClick={id => deleteAnswer(id)}
+      />
+    </div>
+  );
+};
 
 export default QuestionShowPage;
