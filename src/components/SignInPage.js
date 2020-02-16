@@ -1,19 +1,11 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
 import { Session } from "../api/session";
 
-export class SignInPage extends Component {
-  constructor(props) {
-    super(props);
+export const SignInPage = props => {
+  const [errors, setErrors] = useState([]);
 
-    this.state = {
-      errors: []
-    };
-
-    this.createSession = this.createSession.bind(this);
-  }
-
-  createSession(event) {
+  const createSession = event => {
     event.preventDefault();
     const { currentTarget: form } = event;
 
@@ -24,48 +16,42 @@ export class SignInPage extends Component {
       password: fd.get("password")
     }).then(data => {
       if (data.status === 404) {
-        this.setState({
-          errors: [{ message: "Wrong Email or Password" }]
-        });
+        setErrors([...errors, { message: "Wrong Email or Password" }]);
       } else {
-        this.props.history.push("/");
-        if (typeof this.props.onSignIn === "function") {
-          this.props.onSignIn();
+        props.history.push("/");
+        if (typeof props.onSignIn === "function") {
+          props.onSignIn();
         }
       }
     });
-  }
-
-  render() {
-    const { errors } = this.state;
-    return (
-      <div className="ui clearing segment Page">
-        <h1 className="ui center aligned header">Sign In</h1>
-        <form className="ui large form" onSubmit={this.createSession}>
-          {errors.length > 0 ? (
-            <div className="ui negative message">
-              <div className="header">Failed to Sign In</div>
-              <p>{errors.map(error => error.message).join(", ")}</p>
-            </div>
-          ) : (
-            ""
-          )}
-          <div className="field">
-            <label htmlFor="email">Email</label>
-            <input type="email" name="email" id="email" required />
+  };
+  return (
+    <div className="ui clearing segment Page">
+      <h1 className="ui center aligned header">Sign In</h1>
+      <form className="ui large form" onSubmit={createSession}>
+        {errors.length > 0 ? (
+          <div className="ui negative message">
+            <div className="header">Failed to Sign In</div>
+            <p>{errors.map(error => error.message).join(", ")}</p>
           </div>
-          <div className="field">
-            <label htmlFor="password">Password</label>
-            <input type="password" name="password" id="password" required />
-          </div>
+        ) : (
+          ""
+        )}
+        <div className="field">
+          <label htmlFor="email">Email</label>
+          <input type="email" name="email" id="email" required />
+        </div>
+        <div className="field">
+          <label htmlFor="password">Password</label>
+          <input type="password" name="password" id="password" required />
+        </div>
 
-          <input
-            className="ui right floated orange button"
-            type="submit"
-            value="Sign In"
-          />
-        </form>
-      </div>
-    );
-  }
-}
+        <input
+          className="ui right floated orange button"
+          type="submit"
+          value="Sign In"
+        />
+      </form>
+    </div>
+  );
+};
