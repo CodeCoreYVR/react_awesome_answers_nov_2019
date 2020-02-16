@@ -1,7 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-export const NavBar = ({ currentUser, onSignOut }) => {
+import { Clock } from "./Clock";
+
+export const NavBar = ({ currentUser, onSignOut, showTime }) => {
   const handleSignOutClick = event => {
     event.preventDefault();
     if (typeof onSignOut === "function") {
@@ -20,6 +22,7 @@ export const NavBar = ({ currentUser, onSignOut }) => {
         Ask
       </NavLink>
       <div className="right menu">
+        {showTime && <Clock />}
         {!currentUser && (
           <>
             <NavLink exact to="/sign_in" className="ui black button">

@@ -16,7 +16,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: null
+      currentUser: null,
+      showTime: true
     };
 
     this.getUser = this.getUser.bind(this);
@@ -48,6 +49,7 @@ class App extends Component {
           <NavBar
             currentUser={this.state.currentUser}
             onSignOut={this.destroySession}
+            showTime={this.state.showTime}
           />
         </header>
         <div className="ui container segment">
