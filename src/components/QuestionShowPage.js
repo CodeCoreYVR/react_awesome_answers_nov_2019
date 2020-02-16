@@ -84,4 +84,4 @@ const QuestionShowPage = props => {
   );
 };
 
-export default QuestionShowPage;
+export default React.memo(QuestionShowPage);

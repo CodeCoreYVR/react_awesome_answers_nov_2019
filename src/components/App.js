@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import QuestionShowPage from "./QuestionShowPage";
@@ -13,36 +13,34 @@ import { AuthRoute } from "./AuthRoute";
 import { SignUpPage } from "./SignUpPage";
 
 const App = () => {
-  const [appState, setAppState] = useState({
-    currentUser: null,
-    showTime: true
-  });
+  const [currentUser, setCurrentUser] = useState(null);
+  const [showTime] = useState(true);
 
-  const getUser = () => {
+  const getUser = useCallback(() => {
     User.current().then(data => {
       if (typeof data.id !== "number") {
-        setAppState({ ...appState, currentUser: null });
+        setCurrentUser(null);
       } else {
-        setAppState({ ...appState, currentUser: data });
+        setCurrentUser(data);
       }
     });
-  };
+  }, []);
 
   const destroySession = () => {
-    Session.destroy().then(setAppState({ ...appState, currentUser: null }));
+    Session.destroy().then(currentUser(null));
   };
 
   useEffect(() => {
     getUser();
-  }, []);
+  }, [getUser]);
 
   return (
     <BrowserRouter>
       <header>
         <NavBar
-          currentUser={appState.currentUser}
+          currentUser={currentUser}
           onSignOut={destroySession}
-          showTime={appState.showTime}
+          showTime={showTime}
         />
       </header>
       <div className="ui container segment">
@@ -51,13 +49,13 @@ const App = () => {
           <Route exact path="/questions" component={QuestionIndexPage} />
           <AuthRoute
             // The !! turns a statement from "truthy/falsy" to "true/false" respectively
-            isAuthenticated={!!appState.currentUser}
+            isAuthenticated={!!currentUser}
             component={QuestionNewPage}
             path="/questions/new"
             exact
           />
           <AuthRoute
-            isAuthenticated={!!appState.currentUser}
+            isAuthenticated={!!currentUser}
             component={QuestionShowPage}
             path="/questions/:id"
             exact
