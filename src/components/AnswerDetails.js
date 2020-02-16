@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { QuestionShowContext } from "./QuestionShowPage";
 
 export const AnswerDetails = props => {
+  const deleteAnswer = useContext(QuestionShowContext);
+
   return (
     <div className="ui segment list">
       <p>
@@ -18,18 +20,12 @@ export const AnswerDetails = props => {
         </small>
       </p>
       <p>Answered {props.created_at.toLocaleString()}</p>
-      <QuestionShowContext.Consumer>
-        {deleteAnswer => {
-          return (
-            <button
-              className="ui small  red button"
-              onClick={() => deleteAnswer(props.id)}
-            >
-              Delete
-            </button>
-          );
-        }}
-      </QuestionShowContext.Consumer>
+      <button
+        className="ui small  red button"
+        onClick={() => deleteAnswer(props.id)}
+      >
+        Delete
+      </button>
     </div>
   );
 };
