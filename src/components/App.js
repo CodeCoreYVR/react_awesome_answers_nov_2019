@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import QuestionShowPage from "./QuestionShowPage";
@@ -12,80 +12,72 @@ import { Session } from "../api/session";
 import { AuthRoute } from "./AuthRoute";
 import { SignUpPage } from "./SignUpPage";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentUser: null,
-      showTime: true
-    };
+const App = () => {
+  const [appState, setAppState] = useState({
+    currentUser: null,
+    showTime: true
+  });
 
-    this.getUser = this.getUser.bind(this);
-    this.destroySession = this.destroySession.bind(this);
-  }
-
-  getUser() {
+  const getUser = () => {
     User.current().then(data => {
       if (typeof data.id !== "number") {
-        this.setState({ currentUser: null });
+        setAppState({ ...appState, currentUser: null });
       } else {
-        this.setState({ currentUser: data });
+        setAppState({ ...appState, currentUser: data });
       }
     });
-  }
+  };
 
-  destroySession() {
-    Session.destroy().then(this.setState({ currentUser: null }));
-  }
+  const destroySession = () => {
+    Session.destroy().then(setAppState({ ...appState, currentUser: null }));
+  };
 
-  componentDidMount() {
-    this.getUser();
-  }
+  useEffect(() => {
+    getUser();
+  }, []);
 
-  render() {
-    return (
-      <BrowserRouter>
-        <header>
-          <NavBar
-            currentUser={this.state.currentUser}
-            onSignOut={this.destroySession}
-            showTime={this.state.showTime}
+  return (
+    <BrowserRouter>
+      <header>
+        <NavBar
+          currentUser={appState.currentUser}
+          onSignOut={destroySession}
+          showTime={appState.showTime}
+        />
+      </header>
+      <div className="ui container segment">
+        <Switch>
+          <Route exact path="/" component={WelcomePage} />
+          <Route exact path="/questions" component={QuestionIndexPage} />
+          <AuthRoute
+            // The !! turns a statement from "truthy/falsy" to "true/false" respectively
+            isAuthenticated={!!appState.currentUser}
+            component={QuestionNewPage}
+            path="/questions/new"
+            exact
           />
-        </header>
-        <div className="ui container segment">
-          <Switch>
-            <Route exact path="/" component={WelcomePage} />
-            <Route exact path="/questions" component={QuestionIndexPage} />
-            <AuthRoute
-              // The !! turns a statement from "truthy/falsy" to "true/false" respectively
-              isAuthenticated={!!this.state.currentUser}
-              component={QuestionNewPage}
-              path="/questions/new"
-              exact
-            />
-            <AuthRoute
-              isAuthenticated={!!this.state.currentUser}
-              component={QuestionShowPage}
-              path="/questions/:id"
-              exact
-            />
-            <Route
-              path="/sign_up"
-              render={routeProps => (
-                <SignUpPage {...routeProps} onSignUp={this.getUser} />
-              )}
-            />
-            <Route
-              path="/sign_in"
-              render={routeProps => (
-                <SignInPage {...routeProps} onSignIn={this.getUser} />
-              )}
-            />
-          </Switch>
-        </div>
-      </BrowserRouter>
-    );
-  }
-}
+          <AuthRoute
+            isAuthenticated={!!appState.currentUser}
+            component={QuestionShowPage}
+            path="/questions/:id"
+            exact
+          />
+          <Route
+            path="/sign_up"
+            render={routeProps => (
+              <SignUpPage {...routeProps} onSignUp={getUser} />
+            )}
+          />
+          <Route
+            path="/sign_in"
+            render={routeProps => (
+              <SignInPage {...routeProps} onSignIn={getUser} />
+            )}
+          />
+        </Switch>
+      </div>
+    </BrowserRouter>
+  );
+};
 
 export default App;
