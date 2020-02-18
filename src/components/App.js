@@ -11,6 +11,7 @@ import { User } from "../api/user";
 import { Session } from "../api/session";
 import { AuthRoute } from "./AuthRoute";
 import { SignUpPage } from "./SignUpPage";
+import { NotFoundPage } from "./NotFoundPage";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -72,6 +73,11 @@ const App = () => {
               <SignInPage {...routeProps} onSignIn={getUser} />
             )}
           />
+          {/* 
+            A <Route /> component without a "path" prop will render 
+            for all routes. This is primarily inside of a <Switch>
+          */}
+          <Route component={NotFoundPage} />
         </Switch>
       </div>
     </BrowserRouter>
