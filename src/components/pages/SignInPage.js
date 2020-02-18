@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Session } from "../api/session";
+import { Session } from "../../api/session";
 
 export const SignInPage = props => {
   const [errors, setErrors] = useState([]);

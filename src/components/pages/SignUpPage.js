@@ -1,6 +1,6 @@
 import React from "react";
 
-import { User } from "../api/user";
+import { User } from "../../api/user";
 
 export const SignUpPage = props => {
   const handleSubmit = event => {

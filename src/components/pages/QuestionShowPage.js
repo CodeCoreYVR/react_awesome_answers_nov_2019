@@ -1,10 +1,10 @@
 import React, { useReducer, useEffect } from "react";
 
-import "./css/QuestionShowPage.css";
-import { QuestionDetails } from "./QuestionDetails";
-import { AnswerList } from "./AnswerList";
-import { Question } from "../api/question";
-import { Spinner } from "./Spinner";
+import "../css/QuestionShowPage.css";
+import { QuestionDetails } from "../QuestionDetails";
+import { AnswerList } from "../AnswerList";
+import { Question } from "../../api/question";
+import { Spinner } from "../Spinner";
 
 export const QuestionShowContext = React.createContext();
 

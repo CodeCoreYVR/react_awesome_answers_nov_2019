@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import QuestionShowPage from "./QuestionShowPage";
-import { QuestionIndexPage } from "./QuestionIndexPage";
-import { WelcomePage } from "./WelcomePage";
+import QuestionShowPage from "./pages/QuestionShowPage";
+import { QuestionIndexPage } from "./pages/QuestionIndexPage";
+import { WelcomePage } from "./pages/WelcomePage";
 import { NavBar } from "./NavBar";
-import { QuestionNewPage } from "./QuestionNewPage";
-import { SignInPage } from "./SignInPage";
+import { QuestionNewPage } from "./pages/QuestionNewPage";
+import { SignInPage } from "./pages/SignInPage";
 import { User } from "../api/user";
 import { Session } from "../api/session";
 import { AuthRoute } from "./AuthRoute";
-import { SignUpPage } from "./SignUpPage";
-import { NotFoundPage } from "./NotFoundPage";
+import { SignUpPage } from "./pages/SignUpPage";
+import { NotFoundPage } from "./pages/NotFoundPage";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);

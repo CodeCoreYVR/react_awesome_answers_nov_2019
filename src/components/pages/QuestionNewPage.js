@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-import { Question } from "../api/question";
-import { FormErrors } from "./FormErrors";
+import { Question } from "../../api/question";
+import { FormErrors } from "../FormErrors";
 
 export const QuestionNewPage = props => {
   const [errors, setErrors] = useState([]);

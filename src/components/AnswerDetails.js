@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-import { QuestionShowContext } from "./QuestionShowPage";
+import { QuestionShowContext } from "./pages/QuestionShowPage";
 
 export const AnswerDetails = props => {
   const deleteAnswer = useContext(QuestionShowContext);
