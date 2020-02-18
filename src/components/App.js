@@ -12,6 +12,7 @@ import { Session } from "../api/session";
 import { AuthRoute } from "./AuthRoute";
 import { SignUpPage } from "./pages/SignUpPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
+import { QuestionEditPage } from "./pages/QuestionEditPage";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -54,6 +55,11 @@ const App = () => {
             component={QuestionNewPage}
             path="/questions/new"
             exact
+          />
+          <AuthRoute
+            path="/questions/:id/edit"
+            isAuthenticated={!!currentUser}
+            component={QuestionEditPage}
           />
           <AuthRoute
             isAuthenticated={!!currentUser}

@@ -1,4 +1,5 @@
 import React, { useReducer, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import "../css/QuestionShowPage.css";
 import { QuestionDetails } from "../QuestionDetails";
@@ -71,6 +72,13 @@ const QuestionShowPage = props => {
   return (
     <div className="Page">
       <QuestionDetails {...state.question} />
+      <Link
+        className="ui small right floated orange button"
+        to={`/questions/${state.question.id}/edit`}
+      >
+        Edit
+      </Link>
+
       <button
         className="ui small right floated red button"
         onClick={() => deleteQuestion()}
