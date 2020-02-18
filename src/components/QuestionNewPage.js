@@ -1,9 +1,12 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
 import { Question } from "../api/question";
+import { FormErrors } from "./FormErrors";
 
-export class QuestionNewPage extends Component {
-  createQuestion = event => {
+export const QuestionNewPage = props => {
+  const [errors, setErrors] = useState([]);
+
+  const createQuestion = event => {
     event.preventDefault();
     const { currentTarget } = event;
     const fd = new FormData(currentTarget);
@@ -14,37 +17,34 @@ export class QuestionNewPage extends Component {
     };
 
     Question.create(newQuestion).then(data => {
-      if (!data.errors) {
-        // redirect user to that question to QuestionShowPage
-
-        // This 'history' prop is provided by the <Route />
-        // component from react-router. It has a bunch of methods
-        // to manipulate browser. You can use 'push' to direct a user
-        // to any page in our app
-        this.props.history.push(`/questions/${data.id}`);
+      if (data.errors) {
+        setErrors(data.errors);
+        console.log("errors: ", errors);
+      } else {
+        props.history.push(`/questions/${data.id}`);
       }
     });
 
     currentTarget.reset();
   };
-  render() {
-    return (
-      <form
-        className="NewQuestionForm ui form"
-        onSubmit={event => this.createQuestion(event)}
-      >
-        <div className="field">
-          <label htmlFor="title">Title</label>
-          <input type="text" name="title" id="title" />
-        </div>
-        <div className="field">
-          <label htmlFor="body">Body</label>
-          <textarea name="body" id="body" rows="3" />
-        </div>
-        <button className="ui orange button" type="submit">
-          Create Question
-        </button>
-      </form>
-    );
-  }
-}
+  return (
+    <form
+      className="NewQuestionForm ui form"
+      onSubmit={event => createQuestion(event)}
+    >
+      <div className="field">
+        <label htmlFor="title">Title</label>
+        <FormErrors errors={errors} forField="title" />
+        <input type="text" name="title" id="title" />
+      </div>
+      <div className="field">
+        <label htmlFor="body">Body</label>
+        <FormErrors errors={errors} forField="body" />
+        <textarea name="body" id="body" rows="3" />
+      </div>
+      <button className="ui orange button" type="submit">
+        Create Question
+      </button>
+    </form>
+  );
+};
