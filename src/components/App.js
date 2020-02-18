@@ -29,7 +29,7 @@ const App = () => {
   }, []);
 
   const destroySession = () => {
-    Session.destroy().then(currentUser(null));
+    Session.destroy().then(setCurrentUser(null));
   };
 
   useEffect(() => {
