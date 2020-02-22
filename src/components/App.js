@@ -13,6 +13,7 @@ import { AuthRoute } from "./AuthRoute";
 import { SignUpPage } from "./pages/SignUpPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { QuestionEditPage } from "./pages/QuestionEditPage";
+import { UserEditPage } from "./pages/UserEditPage";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -60,6 +61,17 @@ const App = () => {
             path="/questions/:id/edit"
             isAuthenticated={!!currentUser}
             component={QuestionEditPage}
+          />
+          <AuthRoute
+            isAuthenticated={!!currentUser}
+            path="/users/:id/edit"
+            render={routeProps => (
+              <UserEditPage
+                {...routeProps}
+                onUserUpdate={getUser}
+                currentUser={currentUser}
+              />
+            )}
           />
           <AuthRoute
             isAuthenticated={!!currentUser}
